@@ -1,5 +1,10 @@
 package com.capacitacionfull.TareaBack.Repository;
 
-public class ProductoRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.capacitacionfull.TareaBack.Entity.Producto;
+
+public interface ProductoRepo extends JpaRepository<Producto, Integer> {
+
     
 }
