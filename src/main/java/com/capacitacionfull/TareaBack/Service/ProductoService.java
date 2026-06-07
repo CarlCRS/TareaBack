@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capacitacionfull.TareaBack.Config.GlobalExcepcion;
+import com.capacitacionfull.TareaBack.DTO.ProductoDTO;
 import com.capacitacionfull.TareaBack.Entity.Producto;
 import com.capacitacionfull.TareaBack.Repository.ProductoRepo;
 
@@ -24,15 +26,28 @@ public class ProductoService {
     }
 
     public Producto guardarProducto(Producto prod){
-        prod.setNombre(prod.getNombre());
-        prod.setDescripcion(prod.getDescripcion());
-        prod.setPrecio(prod.getPrecio());
+        return productorepo.save(prod);
+    }
+
+    public Producto actualizarProducto(Integer id, ProductoDTO dto){
+         Producto prod = productorepo.findById(id)
+            .orElseThrow(() -> new GlobalExcepcion("Producto no encontrado con id: " + id));
+
+        if (dto.getNombre() != null)
+            prod.setNombre(dto.getNombre());
+        if (dto.getDescripcion() != null)
+            prod.setDescripcion(dto.getDescripcion());
+        if (dto.getPrecio() != null)
+            prod.setPrecio(dto.getPrecio());
 
         return productorepo.save(prod);
     }
 
-    public void ActualizarProducto(Producto pq, Integer id){
-
+    public Producto eliminarProducto(Integer id){
+        Producto prod = productorepo.findById(id)
+            .orElseThrow(() -> new GlobalExcepcion("Producto no encontrado con id: " + id));
+        productorepo.delete(prod);
+        return prod;
     }
 
 

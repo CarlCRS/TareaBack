@@ -6,5 +6,4 @@ import com.capacitacionfull.TareaBack.Entity.Producto;
 
 public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
-    
 }
