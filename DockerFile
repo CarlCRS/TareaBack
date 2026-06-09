@@ -1,0 +1,25 @@
+#Imagen de maven que incluya el jdk 26 
+FROM maven:3.9.6-eclipse-temurin-26 AS build
+WORKDIR /app
+
+#copio el archivo de las dependencias 
+COPY pom.xml .
+
+#Descargar las dependencias
+RUN mvn dependency:go-offline -B.
+
+#Copiar el Codigo fuente 
+COPY src ./src
+
+# Compilar y empaquetar omitiedo lo test 
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:26-jre-alpine 
+#copio el archivo jar generado en el build
+COPY --from=build /app/target/TareaBack-0.0.1-SNAPSHOT.jar app.jar
+
+#Expongo el puerto donde se va a ejecutar
+EXPOSE 8080
+
+# Comando para arrancar la aplicación Java en un contenedor
+ENTRYPOINT ["java", "-jar", "app.jar"]
