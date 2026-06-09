@@ -25,6 +25,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthRespuesta> login(@Valid @RequestBody LoginDTO request) {
         return ResponseEntity.ok(authService.login(request));
+
+        // error de credenciales incorrectas
     }
 
     @PostMapping("/register")

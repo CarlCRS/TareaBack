@@ -13,10 +13,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.capacitacionfull.TareaBack.Repository.UsuarioRepo;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
+@OpenAPIDefinition(
+    info = @Info(
+        title = "API Productos",
+        version = "1.0"
+    ),
+    security = {
+        @SecurityRequirement(name = "bearerAuth")
+    }
+)
+@SecurityScheme(
+    name = "bearerAuth",
+    type = SecuritySchemeType.HTTP,
+    scheme = "bearer",
+    bearerFormat = "JWT"
+)
 public class ApplicationConfig {
 
     private final UsuarioRepo usuarioRepo;

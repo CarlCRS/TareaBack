@@ -3,6 +3,7 @@ package com.capacitacionfull.TareaBack.Entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -27,5 +28,6 @@ public class Producto {
     @NotBlank(message = "La descripcion del producto no puede estar vacío")
     private String descripcion;
     @NotNull(message = "El precio no puede ser null")
+    @DecimalMin(value = "0.01", message = "El precio debe ser mayor a cero")
     private Double precio;
 }
